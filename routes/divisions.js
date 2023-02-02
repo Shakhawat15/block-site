@@ -35,11 +35,10 @@ router.get('/:id', async(req, res) => {
     try {
         const division = await Division.findById(req.params.id);
         
-        if(division) {
-            res.json(division.length === 0);
-            
+        if(division.length === 0) {
+            res.json({err: 'No division found with this ID'});
         } else {
-            res.json({err: `No division found with this ID ${getId}`});
+            res.json(division);
         }
     } catch (e) {
         res.json({Error: `Error is ${e}`});
@@ -52,6 +51,16 @@ router.delete('/:id', async(req, res) => {
     try {
         const division = await Division.findByIdAndDelete({_id: req.params.id});
         res.json({success: 'Division is deleted successfully'})
+    } catch (e) {
+        res.json({Error: `Error is ${e}`});
+    }
+});
+
+// Update data by id
+router.put('/:id', async(req, res) => {
+    try {
+        const division = await Division.findByIdAndUpdate({_id: req.params.id}, req.body);
+        res.json({success: 'Division is updated successfully'});
     } catch (e) {
         res.json({Error: `Error is ${e}`});
     }

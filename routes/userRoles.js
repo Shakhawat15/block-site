@@ -49,4 +49,24 @@ router.get('/:id', async(req, res) => {
     }
 });
 
+// Delete data by id
+router.delete('/:id', async(req, res) => {
+    try {
+        const userRole = await UserRole.findByIdAndDelete({_id: req.params.id});
+        res.json({success: 'User Role is deleted successfully'});
+    } catch (e) {
+        res.json({Error: `Error is ${e}`});
+    }
+});
+
+// Update data by id
+router.put('/:id', async(req, res) => {
+    try {
+        const userRole = await UserRole.findByIdAndUpdate({_id: req.params.id}, req.body);
+        res.json({success: 'User Role updated successfully'});
+    } catch (e) {
+        res.json({Error: `Error is ${e}`});
+    }
+})
+
 module.exports = router;
