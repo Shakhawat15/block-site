@@ -19,7 +19,6 @@ mongoose.connect(db, {useNewUrlParser: true})
 
 // routes  
 app.use(apiRouter);
-// app.use(UserRoles);
 
 const PORT = process.env.PORT || 5000;
 
